@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from octofit_tracker.models import User, Team, Activity, Leaderboard, Workout
 from datetime import timedelta
+from bson import ObjectId
 
 class Command(BaseCommand):
     help = 'Popula o banco de dados octofit_db com dados de teste.'
@@ -13,11 +14,11 @@ class Command(BaseCommand):
         Leaderboard.objects.all().delete()
         Workout.objects.all().delete()
 
-        # Cria usuários
+        # Cria usuários com _id gerado automaticamente
         users = [
-            User(username='john_doe', email='john_doe@example.com', password='password123'),
-            User(username='jane_smith', email='jane_smith@example.com', password='password123'),
-            User(username='alice_wonder', email='alice_wonder@example.com', password='password123'),
+            User(_id=ObjectId(), username='john_doe', email='john_doe@example.com', password='password123'),
+            User(_id=ObjectId(), username='jane_smith', email='jane_smith@example.com', password='password123'),
+            User(_id=ObjectId(), username='alice_wonder', email='alice_wonder@example.com', password='password123'),
         ]
         User.objects.bulk_create(users)
 
