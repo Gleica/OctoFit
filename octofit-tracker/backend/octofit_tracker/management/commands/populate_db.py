@@ -20,7 +20,8 @@ class Command(BaseCommand):
             User(_id=ObjectId(), username='jane_smith', email='jane_smith@example.com', password='password123'),
             User(_id=ObjectId(), username='alice_wonder', email='alice_wonder@example.com', password='password123'),
         ]
-        User.objects.bulk_create(users)
+        for user in users:
+            user.save()
 
         # Cria equipes
         team1 = Team(name='Team Alpha')
@@ -36,7 +37,8 @@ class Command(BaseCommand):
             Activity(user=users[1], activity_type='Cycling', duration=timedelta(minutes=45)),
             Activity(user=users[2], activity_type='Swimming', duration=timedelta(minutes=60)),
         ]
-        Activity.objects.bulk_create(activities)
+        for activity in activities:
+            activity.save()
 
         # Cria placares
         leaderboard_entries = [
@@ -44,7 +46,8 @@ class Command(BaseCommand):
             Leaderboard(user=users[1], score=150),
             Leaderboard(user=users[2], score=200),
         ]
-        Leaderboard.objects.bulk_create(leaderboard_entries)
+        for entry in leaderboard_entries:
+            entry.save()
 
         # Cria treinos
         workouts = [
@@ -52,6 +55,7 @@ class Command(BaseCommand):
             Workout(name='Cycling Session', description='A 20km cycling session'),
             Workout(name='Swimming Laps', description='30 minutes of swimming laps'),
         ]
-        Workout.objects.bulk_create(workouts)
+        for workout in workouts:
+            workout.save()
 
         self.stdout.write(self.style.SUCCESS('Banco de dados populado com sucesso!'))
